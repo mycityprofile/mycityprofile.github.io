@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Razorpay</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body onload="openRazorpay()">
+    <h2>Processing Payment...</h2>
+
+    <script>
+        function getQueryParam(param) {
+            let params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        function openRazorpay() {
+            var options = {
+                key: "rzp_test_rQ0noUXYeDNX4p",
+                order_id: getQueryParam("order_id"), // Order ID from URL
+                name: "My Business",
+                description: "Order Payment",
+                image: "https://yourlogo.com/logo.png",
+                amount: getQueryParam("amount"), // Amount in paise
+                currency: "INR",
+                prefill: {
+                    email: getQueryParam("email"),
+                    contact: getQueryParam("contact")
+                },
+                handler: function (response) {
+                    // Redirect to success page in MAUI app
+                    window.location.href = "yourapp://success?payment_id=" + response.razorpay_payment_id;
+                },
+                modal: {
+                    ondismiss: function () {
+                        // Redirect to failure page in MAUI app
+                        window.location.href = "yourapp://failed";
+                    }
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        }
+    </script>
+</body>
+</html>
