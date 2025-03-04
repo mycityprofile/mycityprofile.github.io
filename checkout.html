@@ -30,12 +30,12 @@
                 },
                 handler: function (response) {
                     // Redirect to success page in MAUI app
-                    window.location.href = "yourapp://success?payment_id=" + response.razorpay_payment_id;
+                    window.location.href = "yourapp://payment-success?payment_id=" + response.razorpay_payment_id;
                 },
                 modal: {
                     ondismiss: function () {
                         // Redirect to failure page in MAUI app
-                        window.location.href = "yourapp://failed";
+                        window.location.href = "yourapp://payment-failed";
                     }
                 }
             };
