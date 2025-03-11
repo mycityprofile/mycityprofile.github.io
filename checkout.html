@@ -28,6 +28,14 @@
                     email: getQueryParam("email"),
                     contact: getQueryParam("contact")
                 },
+                "method": {
+                    "card": true,       // Enable Card Payments
+                    "netbanking": false,// Disable Net Banking
+                    "upi": true,       // Enable UPI
+                    "wallet": false,    // Disable Wallets
+                    "emi": false,        // Disable EMI
+                    "paylater": false
+                },
                 handler: function (response) {
                     // Redirect to success page in MAUI app
                     window.location.href = "yourapp://payment-success?payment_id=" + response.razorpay_payment_id;
